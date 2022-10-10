@@ -1,0 +1,16 @@
+Localizacion por IP:
+  https://www.geodatatool.com/es/
+  https://www.ip2location.com/free/traceroute
+  https://dazzlepod.com/ip/
+
+Método Cimbala:
+  https://www.me.psu.edu/cimbala/me345/Lectures/Outliers.pdf
+
+Paper - Traceroute Anomalies:
+  https://www.net.in.tum.de/fileadmin/TUM/NET/NET-2012-08-1/NET-2012-08-1_02.pdf
+
+RFC de ICMP:
+  https://www.ietf.org/rfc/rfc792.txt
+
+Wikipedia de TraceRoute:
+  https://en.wikipedia.org/wiki/Traceroute

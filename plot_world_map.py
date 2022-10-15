@@ -4,7 +4,8 @@ import pandas as pd
 import plotly.express as px
 
 
-API_URL = 'http://ip-api.com/batch?fields=status,message,country,countryCode,city,lat,lon,query'
+API_URL = 'http://ip-api.com/batch?fields=status,message,lat,lon'
+COLORS = ['blue', 'red', 'green', 'orange', 'magenta', 'crimson']
 
 
 def validate_success(response):
@@ -15,6 +16,7 @@ def validate_success(response):
 
 
 def request_ips(ips):
+    ips = [ip for ip in ips if ip != '192.168.0.1']
     response = requests.post(API_URL, data=json.dumps(ips))
 
     print(response.text)
@@ -22,9 +24,17 @@ def request_ips(ips):
     return pd.json_normalize(response.json())
 
 
-ips = ['195.22.220.56', '195.22.199.82', '4.68.62.57', '4.69.215.94',
-       '8.245.32.246', '163.139.136.67', '222.230.187.142']
-df = request_ips(ips)
+with open('traceroute_results/bsu_by_routes.json') as f:
+    routes = json.load(f)
+
+idx = 0
+df = pd.DataFrame(columns=['lat', 'lon', 'color'])
+for ips in routes:
+    result = request_ips(ips)
+    result['color'] = COLORS[idx]
+    df = pd.concat([df, result])
+    idx += 1
+print(df.to_string())
 fig = px.line_geo(df, lat="lat", lon="lon",
-                  projection="equirectangular", text="city")
+                  projection="equirectangular", color='color')
 fig.show()

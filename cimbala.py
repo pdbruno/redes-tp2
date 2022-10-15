@@ -4,7 +4,7 @@ import numpy as np
 
 def outliers(data):
   res = []
-  while data.len > 0:
+  while len(data) > 0:
     prom = st.mean(data)
     S = st.stdev(data)
     alpha = 0.05
@@ -16,4 +16,6 @@ def outliers(data):
     if max(deltas) > tau * S:
       res.append(outlier_candidate)
       data.remove(outlier_candidate)
+    else:
+      break
   return res

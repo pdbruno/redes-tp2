@@ -5,7 +5,6 @@ import plotly.express as px
 
 
 API_URL = 'http://ip-api.com/batch?fields=status,message,lat,lon'
-COLORS = ['blue', 'red', 'green', 'orange', 'magenta', 'crimson']
 
 
 def validate_success(response):
@@ -24,17 +23,17 @@ def request_ips(ips):
     return pd.json_normalize(response.json())
 
 
-with open('traceroute_results/bsu_by_routes.json') as f:
+with open('traceroute_results/uonbi_ac_ke_routes.json') as f:
     routes = json.load(f)
 
-idx = 0
-df = pd.DataFrame(columns=['lat', 'lon', 'color'])
+route_number = 1
+df = pd.DataFrame(columns=['lat', 'lon'])
 for ips in routes:
     result = request_ips(ips)
-    result['color'] = COLORS[idx]
+    result['route'] = 'route ' + str(route_number)
     df = pd.concat([df, result])
-    idx += 1
+    route_number += 1
 print(df.to_string())
 fig = px.line_geo(df, lat="lat", lon="lon",
-                  projection="equirectangular", color='color')
+                  projection="equirectangular", color='route')
 fig.show()

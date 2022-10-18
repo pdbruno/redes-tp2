@@ -36,4 +36,5 @@ for ips in routes:
 print(df.to_string())
 fig = px.line_geo(df, lat="lat", lon="lon",
                   projection="equirectangular", color='route')
-fig.show()
+fig.write_html("images/uonbi_ac_ke_routes.html")
+fig.write_image("images/uonbi_ac_ke_routes.png")

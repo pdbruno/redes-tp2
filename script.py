@@ -30,13 +30,12 @@ def traceroute(url):
         routes.add(tuple(route))
     return responses, routes
 
-
-url = 'vnu.edu.vn'
-responses, routes = traceroute(url)
-file_name = url.replace(".", "_")
-with open(f'traceroute_results/{file_name}_responses.json', 'w') as f_responses:
-    json.dump(responses, f_responses)
-with open(f'traceroute_results/{file_name}_routes.json', 'w') as f_routes:
-    json.dump(tuple(routes), f_routes)
+for url in ['bsu.by', 'uonbi.ac.ke', 'vnu.edu.vn']:
+    responses, routes = traceroute(url)
+    file_name = url.replace(".", "_")
+    with open(f'traceroute_results/{file_name}_responses.json', 'w') as f_responses:
+        json.dump(responses, f_responses)
+    with open(f'traceroute_results/{file_name}_routes.json', 'w') as f_routes:
+        json.dump(tuple(routes), f_routes)
 
 print("Finished!")
